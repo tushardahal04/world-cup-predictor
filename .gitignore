@@ -216,5 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
 # Raw dataset
 data/raw
+typings/
