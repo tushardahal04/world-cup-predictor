@@ -3,5 +3,6 @@
   "reportUnknownMemberType": "none",
   "reportUnknownArgumentType": "none",
   "reportUnknownParameterType": "none",
-  "reportMissingParameterType": "none"
+  "reportMissingParameterType": "none",
+  "reportUnusedVariable": "none"
 }

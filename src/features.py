@@ -48,8 +48,39 @@ def get_team_stats(df, team, date, n=10):
     return {
         "win_rate": win_rate,
         "avg_goals_scored": average_goals_scored,
-        "average_goals_conceded": average_goals_conceded,
+        "avg_goals_conceded": average_goals_conceded,
     }
 
 
-print(get_team_stats(results, "Brazil", "2026-06-24"))
+def build_features(df):
+    rows_list = []
+    for index, rows in df.iterrows():
+        result = ""
+        home_team_stats = get_team_stats(df, rows["home_team"], rows["date"])
+        away_team_stats = get_team_stats(df, rows["away_team"], rows["date"])
+
+        # Check which team won
+        if rows["home_score"] == rows["away_score"]:
+            result = "draw"
+        elif rows["home_score"] > rows["away_score"]:
+            result = "home"
+        else:
+            result = "away"
+
+        # Make dict
+        row_data = {
+            "home_win_rate": home_team_stats["win_rate"],
+            "home_avg_goals_scored": home_team_stats["avg_goals_scored"],
+            "home_avg_goals_conceded": home_team_stats["avg_goals_conceded"],
+            "away_win_rate": away_team_stats["win_rate"],
+            "away_avg_goals_scored": away_team_stats["avg_goals_scored"],
+            "away_avg_goals_conceded": away_team_stats["avg_goals_conceded"],
+            "result": result,
+        }
+
+        rows_list.append(row_data)
+    return pd.DataFrame(rows_list)
+
+
+features_df = pd.read_csv("data/processed/features.csv")
+print(features_df.shape)
