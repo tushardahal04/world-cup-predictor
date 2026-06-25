@@ -222,3 +222,6 @@ data/
 
 # LSP 
 typings/
+
+# Model
+model/
