@@ -1,21 +1,10 @@
-from datetime import datetime
-
-import joblib
 import pandas as pd
 
-from src.features import get_team_stats
 
+def predict(home_team, away_team, team_stats_df, model):
 
-def predict(home_team, away_team):
-    model = joblib.load("model/model.pkl")
-    results = pd.read_csv("data/processed/results_cleaned.csv")
-
-    home_team_stats = get_team_stats(
-        results, home_team, datetime.today().strftime("%Y-%m-%d")
-    )
-    away_team_stats = get_team_stats(
-        results, away_team, datetime.today().strftime("%Y-%m-%d")
-    )
+    home_team_stats = team_stats_df[team_stats_df["team"] == home_team].iloc[0]
+    away_team_stats = team_stats_df[team_stats_df["team"] == away_team].iloc[0]
 
     match_data = {
         "home_win_rate": home_team_stats["win_rate"],
@@ -29,8 +18,3 @@ def predict(home_team, away_team):
 
     prediction = model.predict(match_df)
     return prediction[0]
-
-
-print(predict("England", "Brazil"))
-print(predict("Brazil", "England"))
-print(predict("France", "Germany"))
