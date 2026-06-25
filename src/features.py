@@ -83,4 +83,3 @@ def build_features(df):
 
 
 features_df = pd.read_csv("data/processed/features.csv")
-print(features_df.shape)
