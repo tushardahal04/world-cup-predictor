@@ -23,10 +23,33 @@ def get_team_stats(df, team, date, n=10):
         (team_matches["away_team"] == team)
         & (team_matches["away_score"] > team_matches["home_score"])
     ]
-
     home_wins = home_wins_df.shape[0]
     away_wins = away_wins_df.shape[0]
     win_rate = (home_wins + away_wins) / n
+
+    # Average goals scored
+    home_goals_scored = team_matches[team_matches["home_team"] == team][
+        "home_score"
+    ].sum()
+    away_goals_scored = team_matches[team_matches["away_team"] == team][
+        "away_score"
+    ].sum()
+    average_goals_scored = (home_goals_scored + away_goals_scored) / n
+
+    # Average goals conceced
+    home_goals_conceded = team_matches[team_matches["home_team"] == team][
+        "away_score"
+    ].sum()
+    away_goals_conceded = team_matches[team_matches["away_team"] == team][
+        "home_score"
+    ].sum()
+    average_goals_conceded = (home_goals_conceded + away_goals_conceded) / n
+
+    return {
+        "win_rate": win_rate,
+        "avg_goals_scored": average_goals_scored,
+        "average_goals_conceded": average_goals_conceded,
+    }
 
 
 print(get_team_stats(results, "Brazil", "2026-06-24"))
