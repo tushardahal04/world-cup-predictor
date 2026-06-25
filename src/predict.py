@@ -1,7 +1,9 @@
-import pandas as pd
-import joblib
-from features import get_team_stats
 from datetime import datetime
+
+import joblib
+import pandas as pd
+
+from src.features import get_team_stats
 
 
 def predict(home_team, away_team):
