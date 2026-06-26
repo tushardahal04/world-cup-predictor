@@ -82,5 +82,6 @@ def build_features(df):
     return pd.DataFrame(rows_list)
 
 
-features_df = build_features(results)
-features_df.to_csv("data/processed/features.csv", index=False)
+if __name__ == "__main__":
+    features_df = build_features(results)
+    features_df.to_csv("data/processed/features.csv", index=False)
