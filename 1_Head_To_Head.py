@@ -18,8 +18,8 @@ team_stats_df = load_data()
 model = load_model()
 teams = sorted(team_stats_df["team"].unique().tolist())
 
-st.set_page_config(page_title="World Cup Simulator")
-st.title("World Cup Prediction Engine")
+st.set_page_config(page_title="World Cup Prediction Engine")
+st.title("Head to Head prediction")
 home_col, away_col = st.columns(2)
 with home_col:
     home_team = st.selectbox(
